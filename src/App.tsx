@@ -17,7 +17,8 @@ const router = createBrowserRouter([
         path: '/game',
         element: <Game />
       }
-    ]
+    ],
+    errorElement: <h1>Error Fatal</h1>
   },
   {
     path: '*',
