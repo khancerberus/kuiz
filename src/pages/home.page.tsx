@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { KButton } from '../components/KButton'
 
 export const Home = (): JSX.Element => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ export const Home = (): JSX.Element => {
       </section>
 
       <section>
-        <button onClick={goToGame}>Jugar</button>
+        <KButton onClick={goToGame} label="Jugar" />
       </section>
     </main>
   )
