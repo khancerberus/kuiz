@@ -1,0 +1,21 @@
+{
+  "name": "kuiz-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "khancerberus",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "3.1.0",
+    "standard": "17.1.0"
+  },
+  "dependencies": {
+    "express": "4.19.2"
+  }
+}

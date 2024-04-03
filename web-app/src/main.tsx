@@ -13,3 +13,11 @@ root.render(
     <App />
   </React.StrictMode>
 )
+
+/**
+ * ✅ TODO: Crear backend con node.js y express
+ * TODO: Crear base de datos con postgresql
+ * TODO: Instalar ORM y conectar con la base de datos
+ * TODO: Crear endpoints para el juego
+ * TODO: Crear modelos para el juego
+ */
