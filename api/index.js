@@ -1,15 +1,28 @@
 import express from 'express'
+import helmet from 'helmet'
+import sequelize from './utils/sequelize.js'
+import { createAdminRouter } from './app/routers/admin.route.js'
 
 const app = express()
 app.use(express.json())
+app.use(helmet())
 
-app.get('/', (req, res) => {
-  res.json('Hello World')
+app.use((req, res, next) => {
+  // Modify this middleware in production
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
+  next()
 })
 
-app.post('/hello', (req, res) => {
-  console.log(req.body)
-  return res.json({ received: req.body })
+app.use('/admin', createAdminRouter())
+
+app.get('/syncTables', async (req, res) => {
+  await sequelize.sync({ force: true })
+
+  res.json({
+    message: 'Database synced successfully'
+  })
 })
 
 app.listen(3000, () => {
