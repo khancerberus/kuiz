@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { KButton } from '../components/KButton'
+import './home.page.css'
 
 export const Home = (): JSX.Element => {
   const navigate = useNavigate()
@@ -9,18 +10,18 @@ export const Home = (): JSX.Element => {
   }
 
   return (
-    <main>
+    <main className="flex flex-col justify-center items-center">
       <header>
-        <h1>Quiz</h1>
+        <h1 className="text-6xl">Kuiz Game</h1>
       </header>
 
       <section>
-        <h3>Qué es?</h3>
+        <h3 className="text-2xl">Qué es?</h3>
         <p>Un juego de preguntas y respuestas.</p>
       </section>
 
       <section>
-        <KButton onClick={goToGame} label="Jugar" />
+        <KButton label="Jugar" onClick={goToGame} />
       </section>
     </main>
   )
