@@ -2,6 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import sequelize from './utils/sequelize.js'
 import { createAdminRouter } from './app/routers/admin.route.js'
+import { createQuizRouter } from './app/routers/quiz.route.js'
 
 const app = express()
 app.use(express.json())
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/admin', createAdminRouter())
+app.use('/quiz', createQuizRouter())
 
 app.get('/syncTables', async (req, res) => {
   await sequelize.sync({ force: true })
