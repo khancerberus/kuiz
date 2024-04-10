@@ -1,12 +1,20 @@
+import { useParams } from 'react-router-dom'
 import { KButton } from '../components/KButton'
 import { Question } from '../components/Question'
 import { useQuestions } from '../store/questions'
+import { useEffect } from 'react'
 
 export const Game = (): JSX.Element => {
+  const { quizId } = useParams()
   const currentQuestion = useQuestions((state) => state.currentQuestion)
   const questions = useQuestions((state) => state.questions)
   const previousQuestion = useQuestions((state) => state.previousQuestion)
   const nextQuestion = useQuestions((state) => state.nextQuestion)
+
+  useEffect(() => {
+    console.log('Quiz IDENTIFIER', quizId)
+    // Cargar las preguntas del quiz
+  })
 
   if (questions.length === 0) {
     return <div>NO HAY PREGUNTAS</div>
