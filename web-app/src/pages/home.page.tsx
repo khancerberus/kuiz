@@ -4,13 +4,17 @@ import './home.page.css'
 import { useEffect, useState } from 'react'
 import { QuizService } from '../services/quiz.service'
 import { type Quiz } from '../types'
+import { KDialog } from '../components/KDialog'
+import { CircleX } from 'lucide-react'
 
 export const Home = (): JSX.Element => {
   const navigate = useNavigate()
   const [quizzes, setQuizzes] = useState<Quiz[]>([])
+  const [currentQuizzSelected, setCurrentQuizzSelected] = useState<Quiz | null>(null)
+  const [isDialogOpened, setIsDialogOpened] = useState<boolean>(false)
 
-  const goToGame = (): void => {
-    navigate('/game')
+  const goToGame = (quizId: string): void => {
+    navigate('/game/' + quizId)
   }
 
   useEffect(() => {
@@ -46,7 +50,9 @@ export const Home = (): JSX.Element => {
               key={quiz.id}
               className="flex flex-col w-96 border-2 hover:cursor-pointer hover:border-yellow-200"
               onClick={() => {
-                navigate(`/game/${quiz.id}`)
+                // navigate(`/game/${quiz.id}`)
+                setIsDialogOpened(true)
+                setCurrentQuizzSelected(quiz)
               }}
             >
               <img
@@ -63,6 +69,37 @@ export const Home = (): JSX.Element => {
           ))}
         </ul>
       </section>
+
+      <KDialog
+        isOpened={isDialogOpened}
+        className="w-3/4 rounded-2xl backdrop:bg-slate-900 backdrop:bg-opacity-20 backdrop:backdrop-blur-md"
+      >
+        <div className="flex flex-col p-5 w-100 gap-5">
+          <header className="flex w-100 justify-between">
+            <h3 className="flex text-6xl">{currentQuizzSelected?.name}</h3>
+            <button
+              onClick={() => {
+                setIsDialogOpened(false)
+              }}
+              className="flex justify-center items-center w-12 h-12 text-3xl hover:text-red-500 transition-all duration-200 rounded-sm"
+            >
+              <CircleX />
+            </button>
+          </header>
+
+          <section>
+            <p>{currentQuizzSelected?.description}</p>
+            <p>Creado por: {currentQuizzSelected?.owner}</p>
+          </section>
+
+          <footer>
+            <KButton
+              label="Jugar"
+              onClick={() => { goToGame(currentQuizzSelected?.id) }}
+            />
+          </footer>
+        </div>
+      </KDialog>
     </main>
   )
 }

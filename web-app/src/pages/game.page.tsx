@@ -3,18 +3,26 @@ import { KButton } from '../components/KButton'
 import { Question } from '../components/Question'
 import { useQuestions } from '../store/questions'
 import { useEffect } from 'react'
+import { QuestionService } from '../services/question.service'
 
 export const Game = (): JSX.Element => {
   const { quizId } = useParams()
   const currentQuestion = useQuestions((state) => state.currentQuestion)
   const questions = useQuestions((state) => state.questions)
+  const initQuestions = useQuestions((state) => state.initQuestions)
   const previousQuestion = useQuestions((state) => state.previousQuestion)
   const nextQuestion = useQuestions((state) => state.nextQuestion)
 
   useEffect(() => {
     console.log('Quiz IDENTIFIER', quizId)
     // Cargar las preguntas del quiz
-  })
+    QuestionService.getByQuizId({ quizId }).then(({ questions }) => {
+      // useQuestions.setState({ questions })
+      initQuestions(questions)
+    }).catch((error) => {
+      console.error('Error al cargar las preguntas', error)
+    })
+  }, [])
 
   if (questions.length === 0) {
     return <div>NO HAY PREGUNTAS</div>

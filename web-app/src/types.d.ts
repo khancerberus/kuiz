@@ -4,3 +4,10 @@ export interface Quiz {
   description: string
   owner: string
 }
+
+interface Question {
+  description: string
+  options: string[]
+  correct?: number
+  selectedAnswer?: number
+}

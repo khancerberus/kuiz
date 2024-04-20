@@ -1,38 +1,21 @@
 import { create } from 'zustand'
-
-interface Question {
-  question: string
-  options: string[]
-  correct?: number
-  selectedAnswer?: number
-}
+import { type Question } from '../types'
 
 interface QuestionsState {
   currentQuestion: number
   questions: Question[]
+  initQuestions: (questions: Question[]) => void
   previousQuestion: () => void
   nextQuestion: () => void
   setSelectedAnswer: (question: number, option: number) => void
 }
 
-const globalQuestions: Question[] = [
-  {
-    question: '¿Cuál es la capital de Francia?',
-    options: ['Madrid', 'París', 'Londres', 'Berlín']
-  },
-  {
-    question: '¿De qué color es el logo de Twitch?',
-    options: ['Morado', 'Azul', 'Rojo', 'Verde']
-  },
-  {
-    question: '¿Cuál es el país mas grande del mundo en territorio?',
-    options: ['Canadá', 'China', 'Rusia', 'Estados Unidos']
-  }
-]
-
 export const useQuestions = create<QuestionsState>((set) => ({
   currentQuestion: 0,
-  questions: globalQuestions,
+  questions: [],
+  initQuestions: (questions: Question[]) => {
+    set({ questions })
+  },
   previousQuestion: () => {
     set((state) => ({
       currentQuestion:

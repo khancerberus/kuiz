@@ -15,7 +15,7 @@ export const Question = (): JSX.Element => {
 
   return (
     <article>
-      <p className="text-xl">{questions[currentQuestion].question}</p>
+      <p className="text-xl">{questions[currentQuestion].description}</p>
 
       <ul className="">
         {questions[currentQuestion].options.map((option, index) => (
