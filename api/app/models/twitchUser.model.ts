@@ -1,7 +1,11 @@
-import { DataTypes, Model } from 'sequelize'
-import sequelize from '../../utils/sequelize.js'
+import { DataTypes, InferAttributes, Model } from 'sequelize'
+import sequelize from '../../utils/sequelize'
 
-export class TwitchUser extends Model {}
+export class TwitchUser extends Model<InferAttributes<TwitchUser>> {
+  declare privateId: string
+  declare twitchId: string
+  declare email: string
+}
 
 TwitchUser.init({
   privateId: {

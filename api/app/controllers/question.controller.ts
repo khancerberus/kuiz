@@ -1,7 +1,8 @@
-import { Question } from '../models/question.model.js'
+import { Request, Response } from 'express'
+import { Question } from '../models/question.model'
 
 export const QuestionController = {
-  getByQuizId: async (req, res) => {
+  getByQuizId: async (req: Request, res: Response): Promise<Response> => {
     const { quizId } = req.params
 
     const questions = await Question.findAll({

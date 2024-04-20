@@ -1,15 +1,15 @@
 import express from 'express'
 import helmet from 'helmet'
-import sequelize from './utils/sequelize.js'
-import { createAdminRouter } from './app/routers/admin.route.js'
-import { createQuizRouter } from './app/routers/quiz.route.js'
-import { createQuestionRouter } from './app/routers/question.route.js'
+import sequelize from './utils/sequelize'
+import { createAdminRouter } from './app/routers/admin.route'
+import { createQuizRouter } from './app/routers/quiz.route'
+import { createQuestionRouter } from './app/routers/question.route'
 
 const app = express()
 app.use(express.json())
 app.use(helmet())
 
-app.use((req, res, next) => {
+app.use((_, res, next) => {
   // Modify this middleware in production
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
@@ -21,7 +21,7 @@ app.use('/admin', createAdminRouter())
 app.use('/quiz', createQuizRouter())
 app.use('/question', createQuestionRouter())
 
-app.get('/syncTables', async (req, res) => {
+app.get('/syncTables', async (_, res) => {
   await sequelize.sync({ force: true })
 
   res.json({

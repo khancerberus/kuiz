@@ -1,7 +1,8 @@
-import { Quiz } from '../models/quiz.model.js'
+import { Request, Response } from 'express'
+import { Quiz } from '../models/quiz.model'
 
 export const QuizController = {
-  getAll: async (req, res) => {
+  getAll: async (_: Request, res: Response) => {
     const quizzes = await Quiz.findAll({
       include: 'owner'
     })
