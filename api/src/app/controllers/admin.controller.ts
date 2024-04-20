@@ -1,17 +1,18 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { TwitchUser } from '../models/twitchUser.model'
 import { Quiz } from '../models/quiz.model'
 
 export const AdminController = {
   createUser: async (req: Request, res: Response): Promise<Response> => {
-    const newUser = await TwitchUser.create(req.body)
+    const newTwitchUser: TwitchUser = req.body
+    const newUser = await TwitchUser.create(newTwitchUser)
 
     return res.json({
       user: newUser
     })
   },
   createQuiz: async (req: Request, res: Response): Promise<Response> => {
-    const quiz = req.body
+    const quiz: Quiz = req.body
 
     const owner = await TwitchUser.findOne({
       where: {

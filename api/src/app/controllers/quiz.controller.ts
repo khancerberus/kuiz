@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { Quiz } from '../models/quiz.model'
 
 export const QuizController = {
@@ -6,7 +6,7 @@ export const QuizController = {
     const quizzes = await Quiz.findAll({
       include: 'owner'
     })
-    if (!quizzes) {
+    if (quizzes == null) {
       return res.status(404).json({
         message: 'No quizzes found'
       })

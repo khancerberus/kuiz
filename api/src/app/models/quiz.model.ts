@@ -1,13 +1,24 @@
-import { BelongsToSetAssociationMixin, DataTypes, HasManyGetAssociationsMixin, InferAttributes, Model, NonAttribute } from 'sequelize'
+import {
+  type BelongsToSetAssociationMixin,
+  type HasManyGetAssociationsMixin,
+  type InferAttributes,
+  type NonAttribute,
+  type ForeignKey,
+  type InferCreationAttributes,
+  DataTypes,
+  Model
+} from 'sequelize'
 import sequelize from '../../utils/sequelize'
 import { Question } from './question.model'
 import { TwitchUser } from './twitchUser.model'
 
-export class Quiz extends Model<InferAttributes<Quiz>> {
+export class Quiz extends Model<InferAttributes<Quiz, { omit: 'questions' }>, InferCreationAttributes<Quiz, { omit: 'questions' }>
+> {
   declare id: string
   declare name: string
   declare description: string
 
+  declare ownerId?: ForeignKey<TwitchUser['privateId']>
   declare owner?: NonAttribute<TwitchUser>
   declare setOwner: BelongsToSetAssociationMixin<TwitchUser, string>
 

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { Question } from '../models/question.model'
 
 export const QuestionController = {

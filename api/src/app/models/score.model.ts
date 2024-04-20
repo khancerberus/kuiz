@@ -1,13 +1,13 @@
-import { DataTypes, InferAttributes, Model } from 'sequelize'
+import { DataTypes, type InferAttributes, Model } from 'sequelize'
 import sequelize from '../../utils/sequelize'
 import { TwitchUser } from './twitchUser.model'
 import { Quiz } from './quiz.model'
 
 export class Score extends Model<InferAttributes<Score>> {
   declare id: string
-  declare goodAnswers: Number
-  declare badAnswers: Number
-  declare notAnswered: Number
+  declare goodAnswers: number
+  declare badAnswers: number
+  declare notAnswered: number
 }
 
 Score.init({
@@ -38,4 +38,4 @@ Score.init({
 })
 
 Score.belongsTo(TwitchUser, { foreignKey: 'playerId', as: 'player' })
-Score.belongsTo(Quiz, { foreignKey: 'quizId', as: 'quiz'})
+Score.belongsTo(Quiz, { foreignKey: 'quizId', as: 'quiz' })

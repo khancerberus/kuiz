@@ -1,8 +1,15 @@
-import { DataTypes, ForeignKey, InferAttributes, Model, NonAttribute } from 'sequelize'
+import {
+  type ForeignKey,
+  type InferAttributes,
+  type NonAttribute,
+  type InferCreationAttributes,
+  DataTypes,
+  Model
+} from 'sequelize'
 import sequelize from '../../utils/sequelize'
-import { Quiz } from './quiz.model'
+import { type Quiz } from './quiz.model'
 
-export class Question extends Model<InferAttributes<Question>> {
+export class Question extends Model<InferAttributes<Question>, InferCreationAttributes<Question>> {
   declare id: string
   declare description: string
   declare options: string[]
