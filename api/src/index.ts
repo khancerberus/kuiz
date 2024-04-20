@@ -1,4 +1,10 @@
-import express, { type RequestHandler, type Request, type Response } from 'express'
+import express, {
+  type RequestHandler,
+  type Request,
+  type Response,
+  type ErrorRequestHandler,
+  type NextFunction
+} from 'express'
 import helmet from 'helmet'
 import sequelize from './utils/sequelize'
 import { createAdminRouter } from './app/routers/admin.route'
@@ -30,6 +36,13 @@ const syncTables = async (_req: Request, res: Response): Promise<Response> => {
 }
 
 app.get('/syncTables', (syncTables) as RequestHandler)
+
+app.use((err: ErrorRequestHandler, _req: Request, res: Response, _next: NextFunction) => {
+  console.log(err)
+  return res.status(500).json({
+    message: 'Internal server error'
+  })
+})
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000')
