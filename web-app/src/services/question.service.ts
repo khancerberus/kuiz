@@ -2,8 +2,8 @@ import { api } from '../api'
 import { type Question } from '../types'
 
 const getByQuizId = async ({ quizId }: { quizId: string }): Promise<Question[]> => {
-  const response = await api.get(`/question/${quizId}`)
-  return response.data
+  const { data: questions } = await api.get(`/question/${quizId}`)
+  return questions
 }
 
 export const QuestionService = {

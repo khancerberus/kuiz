@@ -1,28 +1,37 @@
-import { useParams } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { KButton } from '../components/KButton'
 import { Question } from '../components/Question'
 import { useQuestions } from '../store/questions'
 import { useEffect } from 'react'
 import { QuestionService } from '../services/question.service'
+import { useQuizzes } from '../store/quiz'
 
 export const Game = (): JSX.Element => {
-  const { quizId } = useParams()
+  const currentQuizz = useQuizzes((state) => state.currentQuizz)
+
   const currentQuestion = useQuestions((state) => state.currentQuestion)
   const questions = useQuestions((state) => state.questions)
   const initQuestions = useQuestions((state) => state.initQuestions)
   const previousQuestion = useQuestions((state) => state.previousQuestion)
   const nextQuestion = useQuestions((state) => state.nextQuestion)
+  const isCompleted = useQuestions((state) => state.isCompleted)
 
   useEffect(() => {
-    console.log('Quiz IDENTIFIER', quizId)
     // Cargar las preguntas del quiz
-    QuestionService.getByQuizId({ quizId }).then(({ questions }) => {
-      // useQuestions.setState({ questions })
-      initQuestions(questions)
-    }).catch((error) => {
-      console.error('Error al cargar las preguntas', error)
-    })
+    if (currentQuizz != null) {
+      QuestionService.getByQuizId({ quizId: currentQuizz.id })
+        .then((questions) => {
+          initQuestions(questions)
+        })
+        .catch((error) => {
+          console.error('Error al cargar las preguntas', error)
+        })
+    }
   }, [])
+
+  if (currentQuizz == null) {
+    return <Navigate to="/" />
+  }
 
   if (questions.length === 0) {
     return <div>NO HAY PREGUNTAS</div>
@@ -46,13 +55,28 @@ export const Game = (): JSX.Element => {
         <Question />
       </section>
 
-      <footer className="mt-5">
-        <KButton
-          label="Anterior"
-          className="mx-2"
-          onClick={previousQuestion}
-        />
-        <KButton label="Siguiente" className="mx-2" onClick={nextQuestion} />
+      <footer className="flex flex-col justify-center align-middle content-center mt-5">
+        <div>
+          <KButton
+            label="Anterior"
+            className="mx-2 border p-1"
+            onClick={previousQuestion}
+          />
+          <KButton
+            label="Siguiente"
+            className="mx-2 border p-1"
+            onClick={nextQuestion}
+          />
+        </div>
+
+        <div className="flex justify-center p-10">
+          <button
+            className="p-3 bg-green-700 hover:bg-green-900 disabled:bg-slate-700 disabled:text-gray-400"
+            disabled={!isCompleted()}
+          >
+            Enviar
+          </button>
+        </div>
       </footer>
     </main>
   )

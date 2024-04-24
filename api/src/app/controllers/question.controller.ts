@@ -11,14 +11,12 @@ export const QuestionController = {
       }
     })
 
-    return res.json({
-      questions: questions.map(question => {
-        return {
-          id: question.id,
-          description: question.description,
-          options: question.options
-        }
-      })
-    })
+    return res.json(questions.map(question => {
+      return {
+        id: question.id,
+        description: question.description,
+        options: question.options
+      }
+    }))
   }
 }

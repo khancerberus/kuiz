@@ -9,5 +9,5 @@ interface Question {
   description: string
   options: string[]
   correct?: number
-  selectedAnswer?: number
+  selectedAnswer: number | null
 }
