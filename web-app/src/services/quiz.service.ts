@@ -1,11 +1,20 @@
 import { api } from '../api'
-import { type Quiz } from '../types'
+import { type Question, type Quiz } from '../types'
 
 const getAll = async (): Promise<Quiz[]> => {
-  const response = await api.get('/quiz')
+  const { data } = await api.get('/quiz')
+  return data
+}
+
+const finishGame = async ({ quiz, questions }: { quiz: Quiz, questions: Question[] }): Promise<any> => {
+  const response = await api.post('/quiz/finishGame', {
+    quiz,
+    questions
+  })
   return response.data
 }
 
 export const QuizService = {
-  getAll
+  getAll,
+  finishGame
 }

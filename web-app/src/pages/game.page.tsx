@@ -5,6 +5,7 @@ import { useQuestions } from '../store/questions'
 import { useEffect } from 'react'
 import { QuestionService } from '../services/question.service'
 import { useQuizzes } from '../store/quiz'
+import { QuizService } from '../services/quiz.service'
 
 export const Game = (): JSX.Element => {
   const currentQuizz = useQuizzes((state) => state.currentQuizz)
@@ -14,7 +15,10 @@ export const Game = (): JSX.Element => {
   const initQuestions = useQuestions((state) => state.initQuestions)
   const previousQuestion = useQuestions((state) => state.previousQuestion)
   const nextQuestion = useQuestions((state) => state.nextQuestion)
-  const isCompleted = useQuestions((state) => state.isCompleted)
+
+  const isCompleted = (): boolean => {
+    return questions.every((question) => question.selectedAnswer != null)
+  }
 
   useEffect(() => {
     // Cargar las preguntas del quiz
@@ -73,6 +77,14 @@ export const Game = (): JSX.Element => {
           <button
             className="p-3 bg-green-700 hover:bg-green-900 disabled:bg-slate-700 disabled:text-gray-400"
             disabled={!isCompleted()}
+            onClick={() => {
+              QuizService.finishGame({ quiz: currentQuizz, questions })
+                .then((correctAnswers) => {
+                  console.log(correctAnswers)
+                }).catch((error) => {
+                  console.log(error)
+                })
+            }}
           >
             Enviar
           </button>

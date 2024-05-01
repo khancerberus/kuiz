@@ -6,11 +6,8 @@ export const Question = (): JSX.Element => {
   const setSelectedAnswer = useQuestions((state) => state.setSelectedAnswer)
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const indexOfOption = questions[currentQuestion].options.indexOf(
-      event.target.value
-    )
-
-    setSelectedAnswer(currentQuestion, indexOfOption)
+    const option = event.target.value
+    setSelectedAnswer(currentQuestion, option)
   }
 
   return (

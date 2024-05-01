@@ -14,7 +14,7 @@ export const QuizDialog = ({ quiz }: { quiz: Quiz }): JSX.Element => {
   return (
     <>
       <li
-        key={quiz.id}
+        key={quiz?.id}
         className="flex flex-col w-96 border-2 hover:cursor-pointer hover:border-yellow-200"
         onClick={() => {
           setIsDialogOpened(true)
@@ -26,9 +26,9 @@ export const QuizDialog = ({ quiz }: { quiz: Quiz }): JSX.Element => {
           className="w-full h-40 object-cover"
         />
         <div className="flex flex-col gap-3 p-2">
-          <h4 className="text-4xl font-bold my-3">{quiz.name}</h4>
-          <p className="text-sm">{quiz.description}</p>
-          <p>Creado por: {quiz.owner}</p>
+          <h4 className="text-4xl font-bold my-3">{quiz?.name}</h4>
+          <p className="text-sm">{quiz?.description}</p>
+          <p>Creado por: {quiz?.owner?.twitchId}</p>
         </div>
       </li>
       <KDialog
@@ -50,7 +50,7 @@ export const QuizDialog = ({ quiz }: { quiz: Quiz }): JSX.Element => {
 
           <section>
             <p>{quiz?.description}</p>
-            <p>Creado por: {quiz?.owner}</p>
+            <p>Creado por: {quiz?.owner?.twitchId}</p>
           </section>
 
           <footer>
