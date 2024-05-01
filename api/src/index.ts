@@ -24,7 +24,7 @@ app.use((_, res, next) => {
 })
 
 app.use('/admin', createAdminRouter())
-app.use('/quiz', createQuizRouter())
+app.use(createQuizRouter())
 app.use('/question', createQuestionRouter())
 
 const syncTables = async (_req: Request, res: Response): Promise<Response> => {

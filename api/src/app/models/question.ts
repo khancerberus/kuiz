@@ -4,13 +4,14 @@ import {
   type NonAttribute,
   type InferCreationAttributes,
   DataTypes,
-  Model
+  Model,
+  type CreationOptional
 } from 'sequelize'
 import sequelize from '../../utils/sequelize'
-import { type Quiz } from './quiz.model'
+import { type Quiz } from './quiz'
 
 export class Question extends Model<InferAttributes<Question>, InferCreationAttributes<Question>> {
-  declare id: string
+  declare id: CreationOptional<string>
   declare description: string
   declare options: string[]
   declare answer: string
@@ -39,6 +40,6 @@ Question.init({
   }
 }, {
   sequelize,
-  modelName: 'QUESTION',
+  tableName: 'QUESTION',
   freezeTableName: true
 })

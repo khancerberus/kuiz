@@ -1,7 +1,7 @@
 import { DataTypes, type InferAttributes, Model } from 'sequelize'
 import sequelize from '../../utils/sequelize'
-import { TwitchUser } from './twitchUser.model'
-import { Quiz } from './quiz.model'
+import { TwitchUser } from './twitchUser'
+import { Quiz } from './quiz'
 
 export class Score extends Model<InferAttributes<Score>> {
   declare id: string
