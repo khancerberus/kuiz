@@ -2,46 +2,70 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { type Question } from '../types'
 
-interface QuestionsState {
-  currentQuestion: number
+interface QuestionState {
+  currentQuestion: Question | null
   questions: Question[]
   initQuestions: (questions: Question[]) => void
   previousQuestion: () => void
   nextQuestion: () => void
-  setSelectedAnswer: (questionIndex: number, option: string) => void
+  setSelectedAnswer: (currentQuestion: Question, option: string) => void
 }
 
-export const useQuestions = create<QuestionsState>()(
-  devtools(
-    persist(
-      (set, get) => ({
-        currentQuestion: 0,
-        questions: [],
-        initQuestions: (questions: Question[]) => {
-          set({ questions })
-        },
-        previousQuestion: () => {
-          set((state) => ({
-            currentQuestion:
-              state.currentQuestion !== 0
-                ? state.currentQuestion - 1
-                : state.questions.length - 1
-          }))
-        },
-        nextQuestion: () => {
-          set((state) => ({
-            currentQuestion:
-              state.currentQuestion !== state.questions.length - 1
-                ? state.currentQuestion + 1
-                : 0
-          }))
-        },
-        setSelectedAnswer: (questionIndex, option) => undefined // TODO Implementar
-      }),
-      {
-        name: 'questions-storage',
-        getStorage: () => localStorage
+export const useQuestions = create<QuestionState>()(devtools(persist(
+  (set, get) => ({
+    currentQuestion: null,
+    questions: [],
+    initQuestions: (questions: Question[]) => {
+      set({
+        questions,
+        currentQuestion: questions[0]
+      })
+    },
+    previousQuestion: () => {
+      if (get().currentQuestion == null) {
+        set({ currentQuestion: get().questions[0] })
+        return
       }
-    )
-  )
-)
+      set((state) => {
+        const currentIndex = state.questions.findIndex(
+          (question) => question.id === state.currentQuestion?.id
+        )
+        const previousIndex =
+          currentIndex === 0 ? state.questions.length - 1 : currentIndex - 1
+        return { currentQuestion: state.questions[previousIndex] }
+      })
+    },
+    nextQuestion: () => {
+      if (get().currentQuestion == null) {
+        set({ currentQuestion: get().questions[0] })
+        return
+      }
+      set((state) => {
+        const currentIndex = state.questions.findIndex(
+          (question) => question.id === state.currentQuestion?.id
+        )
+        const nextIndex =
+          currentIndex === state.questions.length - 1 ? 0 : currentIndex + 1
+        return { currentQuestion: state.questions[nextIndex] }
+      })
+    },
+    setSelectedAnswer: (currentQuestion, option) => {
+      set((state) => {
+        const newQuestions = state.questions.map((question) => {
+          if (question.id === currentQuestion.id) {
+            return { ...question, selectedAnswer: option }
+          }
+          return question
+        })
+        return {
+          questions: newQuestions,
+          currentQuestion: { ...currentQuestion, selectedAnswer: option }
+        }
+      })
+    }
+  }),
+  {
+    name: 'questions',
+    getStorage: () => localStorage
+  }
+)))

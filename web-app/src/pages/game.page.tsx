@@ -53,7 +53,7 @@ export const Game = (): JSX.Element => {
 
       <section>
         <header className="mb-5">
-          <h3 className="text-2xl">Pregunta - {currentQuestion + 1}</h3>
+          <h3 className="text-2xl">Pregunta - {currentQuestion?.id}</h3>
           <small className="text-sm">(Selecciona 1 alternativa)</small>
         </header>
         <Question />
