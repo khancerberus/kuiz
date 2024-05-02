@@ -12,10 +12,10 @@ export const Home = (): JSX.Element => {
   useEffect(() => {
     QuizService.getAll()
       .then((quizzes) => {
-        setQuizzes(quizzes) // ✅
+        setQuizzes(quizzes)
       })
       .catch((error) => {
-        console.error(error) // ❌
+        console.error(error)
       })
   }, [])
 
