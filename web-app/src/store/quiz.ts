@@ -2,12 +2,12 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { type Quiz } from '../types'
 
-interface QuizzesState {
+interface QuizState {
   currentQuizz: Quiz | null
   setCurrentQuizz: (quizz: Quiz) => void
 }
 
-export const useQuizzes = create(devtools(persist<QuizzesState>(
+export const useQuizzes = create<QuizState>()(devtools(persist(
   (set) => ({
     currentQuizz: null,
     setCurrentQuizz: (quizz: Quiz) => {
