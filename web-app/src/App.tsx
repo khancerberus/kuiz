@@ -3,6 +3,7 @@ import { Home } from './pages/home.page'
 import { Layout } from './components/Layout'
 import { Error404 } from './components/Error404'
 import { Game } from './pages/game.page'
+import { ErrorHandler } from './components/ErrorHandler'
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
         element: <Game />
       }
     ],
-    errorElement: <h1>Error Fatal</h1>
+    errorElement: <ErrorHandler />
   },
   {
     path: '*',
