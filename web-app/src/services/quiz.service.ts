@@ -1,4 +1,4 @@
-import { api } from '../api'
+import { api } from '../utils/api'
 import { type Question, type Quiz } from '../types'
 
 const getAll = async (): Promise<Quiz[]> => {

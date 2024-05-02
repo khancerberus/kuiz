@@ -1,4 +1,4 @@
-import { api } from '../api'
+import { api } from '../utils/api'
 import { type Question } from '../types'
 
 const getByQuizId = async ({ quizId }: { quizId: string }): Promise<Question[]> => {
