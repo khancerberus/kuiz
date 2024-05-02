@@ -10,8 +10,9 @@ export interface Quiz {
 }
 
 interface Question {
+  id: string
   description: string
   options: string[]
   correct?: number
-  selectedAnswer: number | null
+  selectedAnswer: string | null
 }
