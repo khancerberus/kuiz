@@ -5,6 +5,7 @@ import { type Question } from '../types'
 interface QuestionState {
   currentQuestion: Question | null
   questions: Question[]
+  resetQuestions: () => void
   initQuestions: (questions: Question[]) => void
   previousQuestion: () => void
   nextQuestion: () => void
@@ -15,7 +16,10 @@ export const useQuestions = create<QuestionState>()(devtools(persist(
   (set, get) => ({
     currentQuestion: null,
     questions: [],
-    initQuestions: (questions: Question[]) => {
+    resetQuestions: () => {
+      set({ questions: [], currentQuestion: null })
+    },
+    initQuestions: (questions) => {
       set({
         questions,
         currentQuestion: questions[0]

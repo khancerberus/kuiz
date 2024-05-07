@@ -4,6 +4,7 @@ import { Layout } from './components/Layout'
 import { Error404 } from './components/Error404'
 import { Game } from './pages/game.page'
 import { ErrorHandler } from './components/ErrorHandler'
+import { ScorePage } from './pages/score.page'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: '/game',
         element: <Game />
+      },
+      {
+        path: '/score',
+        element: <ScorePage />
       }
     ],
     errorElement: <ErrorHandler />
