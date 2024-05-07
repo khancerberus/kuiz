@@ -10,7 +10,7 @@ import {
 import sequelize from '../../utils/sequelize'
 import { type Quiz } from './quiz'
 
-export class Question extends Model<InferAttributes<Question>, InferCreationAttributes<Question>> {
+export class Question extends Model< InferAttributes<Question>, InferCreationAttributes<Question> > {
   declare id: CreationOptional<string>
   declare description: string
   declare options: string[]
@@ -18,6 +18,7 @@ export class Question extends Model<InferAttributes<Question>, InferCreationAttr
 
   declare quizId: ForeignKey<Quiz['id']>
   declare quiz?: NonAttribute<Quiz>
+  declare selectedAnswer?: NonAttribute<string>
 }
 
 Question.init({

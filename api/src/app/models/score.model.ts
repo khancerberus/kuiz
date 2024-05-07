@@ -1,13 +1,19 @@
-import { DataTypes, type InferAttributes, Model } from 'sequelize'
+import { DataTypes, type InferAttributes, Model, type ForeignKey, type InferCreationAttributes } from 'sequelize'
 import sequelize from '../../utils/sequelize'
 import { TwitchUser } from './twitchUser'
 import { Quiz } from './quiz'
 
-export class Score extends Model<InferAttributes<Score>> {
+export class Score extends Model<InferAttributes<Score>, InferCreationAttributes<Score, { omit: 'id' } >> {
   declare id: string
   declare goodAnswers: number
   declare badAnswers: number
   declare notAnswered: number
+
+  declare playerId: ForeignKey<TwitchUser['privateId']>
+  declare player?: TwitchUser
+
+  declare quizId: ForeignKey<Quiz['id']>
+  declare quiz?: Quiz
 }
 
 Score.init({

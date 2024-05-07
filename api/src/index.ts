@@ -10,6 +10,7 @@ import sequelize from './utils/sequelize'
 import { createAdminRouter } from './app/routers/admin.route'
 import { createQuizRouter } from './app/routers/quiz.route'
 import { createQuestionRouter } from './app/routers/question.route'
+import { createGameRouter } from './app/routers/game.route'
 
 const app = express()
 app.use(express.json())
@@ -25,6 +26,7 @@ app.use((_, res, next) => {
 
 app.use('/admin', createAdminRouter())
 app.use(createQuizRouter())
+app.use(createGameRouter())
 app.use('/question', createQuestionRouter())
 
 const syncTables = async (_req: Request, res: Response): Promise<Response> => {
