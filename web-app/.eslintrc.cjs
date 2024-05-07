@@ -30,6 +30,7 @@ module.exports = {
     'import/no-absolute-path': 'warn',
     '@typescript-eslint/explicit-function-return-type': 'warn',
     '@typescript-eslint/space-before-function-paren': 'off',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'multiline-ternary': ['error', 'never']
   }
 }
