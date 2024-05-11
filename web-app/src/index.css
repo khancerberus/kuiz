@@ -9,8 +9,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #FFF;
+  background-color: #1D2B53;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,9 +18,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
-  display: flex;
+}
+
+main {
+  padding: 62px 20px 20px 20px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -34,4 +41,12 @@ body {
   button {
     background-color: #f9f9f9;
   }
+}
+/*  */
+.selected-answer {
+  @apply flex p-2 text-xl items-center rounded-full bg-slate-500 transition-colors
+}
+
+.unselected-answer {
+  @apply flex p-2 text-xl items-center rounded-full hover:bg-slate-900 transition-colors
 }

@@ -7,6 +7,8 @@ export interface Quiz {
   name: string
   description: string
   owner: TwitchUser
+  createdAt: string
+  updatedAt: string
 }
 
 interface Question {

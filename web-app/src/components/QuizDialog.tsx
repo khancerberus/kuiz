@@ -3,8 +3,9 @@ import { KButton } from '../components/KButton'
 import { useState } from 'react'
 import { type Quiz } from '../types'
 import { KDialog } from '../components/KDialog'
-import { CircleX } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { useQuizzes } from '../store/quiz'
+import { format } from '@formkit/tempo'
 
 export const QuizDialog = ({ quiz }: { quiz: Quiz }): JSX.Element => {
   const navigate = useNavigate()
@@ -15,54 +16,50 @@ export const QuizDialog = ({ quiz }: { quiz: Quiz }): JSX.Element => {
     <>
       <li
         key={quiz?.id}
-        className="flex flex-col w-96 border-2 hover:cursor-pointer hover:border-yellow-200"
-        onClick={() => {
-          setIsDialogOpened(true)
-        }}
+        className="flex bg-[#121b34] rounded-lg p-5 items-center justify-between"
       >
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOPEYi23lfCAAtcL0yqDQvifmjX3dNCWol6LVd5vcZ1A&s"
-          alt="Cover Quiz"
-          className="w-full h-40 object-cover"
-        />
-        <div className="flex flex-col gap-3 p-2">
-          <h4 className="text-4xl font-bold my-3">{quiz?.name}</h4>
-          <p className="text-sm">{quiz?.description}</p>
-          <p>Creado por: {quiz?.owner?.twitchId}</p>
+        <div className="flex flex-col p-1">
+          <h4 className="text-4xl font-bold text-[#FAEF5D]">{quiz?.name}</h4>
+          <p className="text-lg">{quiz?.description}</p>
+          <p className="text-sm text-slate-400 mt-3">
+            Creado por: {quiz?.owner?.twitchId}
+          </p>
+          <p className="text-sm text-slate-400">
+            Fecha creación: {format(quiz?.createdAt, 'short', 'cl')}
+          </p>
+          <p className="text-sm text-slate-400">
+            Última actualización: {format(quiz?.updatedAt, 'short', 'cl')}
+          </p>
+        </div>
+        <div className="flex flex-col p-1">
+          <KButton
+            icon={<ChevronRight />}
+            onClick={() => {
+              setIsDialogOpened(true)
+            }}
+          />
         </div>
       </li>
+
       <KDialog
         isOpened={isDialogOpened}
-        className="w-3/4 rounded-2xl backdrop:bg-slate-900 backdrop:bg-opacity-20 backdrop:backdrop-blur-md"
+        onHide={() => { setIsDialogOpened(false) }}
+        title={quiz?.name}
       >
-        <div className="flex flex-col p-5 w-100 gap-5">
-          <header className="flex w-100 justify-between">
-            <h3 className="flex text-6xl">{quiz?.name}</h3>
-            <button
-              onClick={() => {
-                setIsDialogOpened(false)
-              }}
-              className="flex justify-center items-center w-12 h-12 text-3xl hover:text-red-500 transition-all duration-200 rounded-sm"
-            >
-              <CircleX />
-            </button>
-          </header>
+        <section>
+          <p className="text-2xl">{quiz?.description}</p>
+          <p className="text-slate-400">Creado por: {quiz?.owner?.twitchId}</p>
+        </section>
 
-          <section>
-            <p>{quiz?.description}</p>
-            <p>Creado por: {quiz?.owner?.twitchId}</p>
-          </section>
-
-          <footer>
-            <KButton
-              label="Jugar"
-              onClick={() => {
-                navigate('/game')
-                setCurrentQuizz(quiz)
-              }}
-            />
-          </footer>
-        </div>
+        <footer>
+          <KButton
+            label="Jugar"
+            onClick={() => {
+              navigate('/game')
+              setCurrentQuizz(quiz)
+            }}
+          />
+        </footer>
       </KDialog>
     </>
   )
