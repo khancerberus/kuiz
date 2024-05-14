@@ -47,6 +47,14 @@ main {
   @apply flex p-2 text-xl items-center rounded-full bg-slate-500 transition-colors
 }
 
-.unselected-answer {
-  @apply flex p-2 text-xl items-center rounded-full hover:bg-slate-900 transition-colors
+.unselected-answer > * {
+  @apply flex p-2 text-xl items-center rounded-full hover:bg-slate-900 transition-colors hover:cursor-pointer
+}
+
+.correct-answer {
+  @apply flex p-2 text-xl items-center rounded-full bg-green-500
+}
+
+.incorrect-answer {
+  @apply flex p-2 text-xl items-center rounded-full bg-red-500
 }
