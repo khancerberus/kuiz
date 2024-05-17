@@ -9,6 +9,7 @@ export const createAdminRouter = (): Router => {
   const adminService = new AdminService(TwitchUser, Quiz)
   const adminController = new AdminController(adminService)
 
+  router.get('/user', adminController.getUsers)
   router.post('/user', adminController.createUser)
   router.post('/quiz', adminController.createQuiz)
 

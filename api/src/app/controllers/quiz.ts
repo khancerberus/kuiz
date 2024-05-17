@@ -1,4 +1,5 @@
 import { type RequestHandler } from 'express'
+import { type Request as JWTRequest } from 'express-jwt'
 import { type QuizService } from '../services/quiz'
 
 export class QuizController {
@@ -16,5 +17,20 @@ export class QuizController {
     }
 
     return res.json(quizzes)
+  }
+
+  getScores: RequestHandler = async (req: JWTRequest, res) => {
+    const scores = await this.quizService.getScores({
+      quizId: req.params.quizId,
+      userId: req.auth?.userId
+    })
+
+    if (scores == null) {
+      return res.status(404).json({
+        message: 'No scores found'
+      })
+    }
+
+    return res.json(scores)
   }
 }

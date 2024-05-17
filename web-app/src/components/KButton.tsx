@@ -12,8 +12,10 @@ export const KButton = (props: KButtonProps): JSX.Element => {
         props?.className
       }
     >
-      {props?.icon}
-      {props?.label}
+      <div className="flex gap-2">
+        {props?.icon}
+        {props?.label}
+      </div>
     </button>
   )
 }

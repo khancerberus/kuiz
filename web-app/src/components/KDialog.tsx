@@ -22,12 +22,12 @@ export const KDialog = (props: KDialogProps): JSX.Element => {
       ref={dialogRef}
       {...props}
       className={
-        'w-full md:max-w-screen-md rounded-2xl bg-[#1D2B53CC] backdrop:bg-slate-900 backdrop:bg-opacity-70 backdrop:backdrop-blur-md transition-all ' +
+        'w-full md:max-w-screen-md rounded-2xl bg-[#1D2B53CC] backdrop:bg-[#000] backdrop:bg-opacity-70 backdrop:backdrop-blur-md transition-all ' +
         props?.className
       }
     >
       <div className="flex flex-col w-100">
-        <header className="flex p-5 w-100 items-center justify-between bg-[#7E2553]">
+        <header className="flex p-5 w-100 items-center justify-between bg-[#4d1633]">
           <h3 className="flex text-3xl md:text-6xl font-bold">
             {props?.title}
           </h3>

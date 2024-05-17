@@ -1,25 +1,31 @@
 import { type RequestHandler } from 'express'
+import { type Request as JWTRequest } from 'express-jwt'
 import { GameService } from '../services/game'
 import { TwitchUser } from '../models/twitchUser'
 
 export class GameController {
-  finishGame: RequestHandler = async (req, res) => {
+  finishGame: RequestHandler = async (req: JWTRequest, res) => {
     const { quiz, questions } = req.body
 
     // Validar que quiz y questions no sean nulos
     if (quiz == null || questions == null) {
-      return res.status(400).json({ message: 'Quiz y questions son requeridos' })
+      return res
+        .status(400)
+        .json({ message: 'Quiz y questions son requeridos' })
     }
 
     // Validar que quiz y questions sean objetos
     if (typeof quiz !== 'object' || typeof questions !== 'object') {
-      return res.status(400).json({ message: 'Quiz y questions deben ser objetos' })
+      return res
+        .status(400)
+        .json({ message: 'Quiz y questions deben ser objetos' })
     }
 
-    // TODO: Cambiar por usuario desde token
+    const userId = req.auth?.userId
+
     const user = await TwitchUser.findOne({
       where: {
-        privateId: '7a0a2230-423b-4879-9373-31c64af5d90f'
+        twitchId: userId
       }
     })
     if (user == null) {

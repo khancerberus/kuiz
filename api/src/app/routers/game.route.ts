@@ -5,7 +5,7 @@ export const createGameRouter = () => {
   const router = Router()
   const gameController = new GameController()
 
-  router.post('/quiz/finishGame', gameController.finishGame)
+  router.post('/finishGame', gameController.finishGame)
 
   return router
 }

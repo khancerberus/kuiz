@@ -2,9 +2,15 @@ import { type RequestHandler } from 'express'
 import { type AdminService } from '../services/admin'
 
 export class AdminController {
-  constructor(
-    private readonly adminService: AdminService
-  ) {}
+  constructor(private readonly adminService: AdminService) {}
+
+  getUsers: RequestHandler = async (_, res) => {
+    const users = await this.adminService.getUsers()
+
+    return res.json({
+      users
+    })
+  }
 
   // #region createUser
   createUser: RequestHandler = async (req, res) => {

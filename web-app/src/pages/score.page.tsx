@@ -15,7 +15,7 @@ export const ScorePage = () => {
 
   return (
     <main className="flex flex-col justify-center items-center gap-5">
-      <header>
+      <header className="mt-5">
         <h1 className="font-bold text-6xl">Tu puntuación!</h1>
       </header>
 

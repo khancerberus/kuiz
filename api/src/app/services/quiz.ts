@@ -1,26 +1,40 @@
 import { type Quiz } from '../models/quiz'
+import { type Score } from '../models/score.model'
 import { TwitchUser } from '../models/twitchUser'
+// import { TwitchService } from './twitch'
 
 export class QuizService {
   constructor(
-    private readonly quizModel: typeof Quiz
+    private readonly quizModel: typeof Quiz,
+    private readonly scoreModel: typeof Score
   ) {}
 
-  getAll = async (): Promise<Quiz[]> => {
+  getAll = async (): Promise<any[]> => {
     const quizzes = await this.quizModel.findAll({
       attributes: { exclude: ['ownerId'] },
       include: [{ model: TwitchUser, as: 'owner', attributes: ['twitchId'] }]
     })
 
+    // const twitchService = new TwitchService()
+
+    // const quizzesWithOwnerName = await Promise.all(
+    //   quizzes.map(async (quiz) => {
+    //     const owner = await twitchService.getUser(quiz?.owner?.twitchId ?? '')
+    //     return { ...quiz.toJSON(), owner }
+    //   })
+    // )
+
+    // console.log(quizzesWithOwnerName)
+
     return quizzes
   }
 
-  // finishGame: RequestHandler = async (req, res) => {
-  //   const { quiz, questions } = req.body
+  getScores = async ({ quizId, userId }: { quizId: string, userId: string }): Promise<any> => {
+    const twitchUser = await TwitchUser.findOne({ where: { twitchId: userId } })
+    const scores = await this.scoreModel.findAll({
+      where: { quizId, playerId: twitchUser?.privateId }
+    })
 
-  //   console.log(quiz)
-  //   console.log(questions)
-
-  //   return res.json({ msg: 'ok' })
-  // }
+    return scores
+  }
 }

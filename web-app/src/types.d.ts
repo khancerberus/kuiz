@@ -1,5 +1,6 @@
 export interface TwitchUser {
   twitchId: string
+  username: string
 }
 
 export interface Quiz {
@@ -17,4 +18,14 @@ interface Question {
   options: string[]
   correct?: number
   selectedAnswer: string | null
+}
+
+interface Score {
+  id: string
+  goodAnswers: number
+  badAnswers: number
+  notAnswered: number
+  player: TwitchUser
+  quiz: Quiz
+  createdAt: string
 }

@@ -7,6 +7,12 @@ export class AdminService {
     private readonly quizModel: typeof Quiz
   ) {}
 
+  getUsers = async (): Promise<TwitchUser[]> => {
+    const users = await this.twitchUserModel.findAll()
+
+    return users
+  }
+
   createUser = async ({ twitchUser }: { twitchUser: TwitchUser }): Promise<TwitchUser> => {
     const createdUser = await this.twitchUserModel.create(twitchUser)
 

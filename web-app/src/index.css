@@ -3,14 +3,16 @@
 @tailwind utilities;
 
 :root {
-  font-family: "Assistant", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Ubuntu Sans", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-optical-sizing: auto;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: #FFF;
-  background-color: #1D2B53;
+
+  background: linear-gradient(180deg, #3a1126 0%, rgba(0,0,0,1) 100%);
+  min-height: 100vh;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,7 +29,7 @@ body {
 }
 
 main {
-  padding: 62px 20px 20px 20px;
+  padding: 76px 20px 20px 20px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -42,6 +44,12 @@ main {
     background-color: #f9f9f9;
   }
 }
+
+.nav-gradient {
+  /* background: linear-gradient(0deg, #7E2553 0%, #3a1126 70%, rgba(0,0,0,1) 100%); */
+  background-color: #4d1633;
+}
+
 /*  */
 .selected-answer {
   @apply flex p-2 text-xl items-center rounded-full bg-slate-500 transition-colors
